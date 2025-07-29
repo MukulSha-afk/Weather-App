@@ -2,104 +2,714 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather App</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css">
-    <link rel="Lecture28 - Weather App/weather-forecast-icon-18.jpg" href="fLecture28 - Weather App/weather-forecast-icon-18.jpg" type="" />
+    <title>Weather Explorer - Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            color: #333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .login-container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 20px;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+
+        .login-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #00b4db 0%, #0083b0 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .login-logo i {
+            font-size: 2rem;
+            color: white;
+        }
+
+        .login-title {
+            color: #2a5298;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .login-subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .form-control {
+            border-radius: 15px;
+            padding: 12px 20px;
+            border: 2px solid #e0e0e0;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+        }
+
+        .form-control:focus {
+            border-color: #2a5298;
+            box-shadow: 0 0 0 3px rgba(42,82,152,0.2);
+            outline: none;
+        }
+
+        .login-btn {
+            border-radius: 15px;
+            padding: 12px 30px;
+            background: linear-gradient(45deg, #2a5298, #1e3c72);
+            border: none;
+            color: white;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .login-btn:hover {
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .guest-btn {
+            border-radius: 15px;
+            padding: 10px 25px;
+            background: transparent;
+            border: 2px solid #2a5298;
+            color: #2a5298;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .guest-btn:hover {
+            background: #2a5298;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .weather-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            display: none;
+        }
+
+        .weather-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .weather-icon {
+            width: 120px;
+            height: 120px;
+            margin: 15px 0;
+            filter: drop-shadow(0 0 8px rgba(0,0,0,0.1));
+        }
+
+        .temperature {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #2a5298;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+
+        .location-input {
+            border-radius: 15px;
+            padding: 10px 20px;
+            border: 2px solid #e0e0e0;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .location-input:focus {
+            border-color: #2a5298;
+            box-shadow: 0 0 0 3px rgba(42,82,152,0.2);
+            outline: none;
+        }
+
+        .predict-btn {
+            border-radius: 15px;
+            padding: 12px 30px;
+            background: linear-gradient(45deg, #2a5298, #1e3c72);
+            border: none;
+            color: white;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .predict-btn:hover {
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .nav-tabs {
+            border: none;
+            margin-bottom: 30px;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .nav-tabs .nav-link {
+            color: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            margin: 0 5px;
+            padding: 12px 25px;
+            border: none;
+            background: rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-tabs .nav-link:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-tabs .nav-link.active {
+            background: linear-gradient(135deg, #00b4db 0%, #0083b0 100%);
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: none;
+        }
+
+        .alert {
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+
+        .forecast-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 10px 0;
+            transition: transform 0.2s;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .forecast-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .weather-details-card {
+            background: rgba(255,255,255,0.9);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .weather-details-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .air-quality-card {
+            background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 15px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .air-quality-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2a5298;
+            margin: 15px 0;
+        }
+
+        .weather-stat {
+            font-size: 1.1rem;
+            margin: 10px 0;
+            color: #555;
+        }
+
+        .weather-stat-value {
+            font-weight: bold;
+            color: #2a5298;
+        }
+
+
+
+        .welcome-header {
+            background: linear-gradient(135deg, #00b4db 0%, #0083b0 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .logout-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
 <body>
-    
-    <div class="wrapper">
-
-        <h1>Weather App</h1>
-
-        <div class="tab-container">
-            <p class="tab" data-userWeather>Your Weather</p>
-            <p class="tab" data-searchWeather>Search Weather</p>
-        </div>
-
-        <div class="weather-container">
-
-            <!-- grant location container-->
-            <div class="sub-container grant-location-container">
-                <img src="./images/location.png" width="80" height="80" loading="lazy">
-                <p>Grant Location Access</p>
-                <p>Allow Access to get weather Information</p>
-                <button class="btn" data-grantAccess>Grant Access</button>
+    <!-- Login Interface -->
+    <div class="container login-container" id="loginContainer">
+        <div class="login-card fade-in">
+            <div class="login-logo">
+                <i class="fas fa-cloud-sun"></i>
             </div>
-
-            <!-- search form -> form-container-->
-            <form class="form-container" data-searchForm>
-                <input placeholder="Search for City..." data-searchInput>
-                <button class="btn" type="submit">
-                    <img src="./images/search.png"  width="20" height="20" loading="lazy">
+            <h2 class="login-title">Weather Explorer</h2>
+            <p class="login-subtitle">Start exploring weather at your location with air quality & forecasting</p>
+            
+            <form id="loginForm">
+                <div class="mb-3">
+                    <input type="email" 
+                           class="form-control" 
+                           id="emailInput" 
+                           placeholder="Enter your email"
+                           required>
+                </div>
+                <div class="mb-3">
+                    <input type="password" 
+                           class="form-control" 
+                           id="passwordInput" 
+                           placeholder="Enter your password"
+                           required>
+                </div>
+                <button type="submit" class="login-btn">
+                    <i class="fas fa-sign-in-alt me-2"></i>Login & Explore
                 </button>
             </form>
-
-            <!--- loading screen container -->
-            <div class="sub-container loading-container">
-                <img src="./images/loading.gif" width="150" height="150">
-                <p>Loading</p>
+            
+            <button class="guest-btn" onclick="loginAsGuest()">
+                <i class="fas fa-user me-2"></i>Continue as Guest
+            </button>
+            
+            <div class="mt-4">
+                <p class="text-muted small">
+                    <i class="fas fa-info-circle me-1"></i>
+                    Get real-time weather data, 14-day forecasts, and air quality information
+                </p>
             </div>
-
-            <!-- show weather info -->
-            <div class="sub-container user-info-container">
-
-                <!--city name and Flag-->
-                <div class="name">
-                    <p data-cityName></p>
-                    <img data-countryIcon>
-                </div>
-
-                <!-- weather descriptuion-->
-                <p data-weatherDesc></p>
-                <!--weather Icon-->
-                <img data-weatherIcon>
-                <!--temperature-->
-                <p data-temp></p>
-
-                <!--3 cards - parameters-->
-                <div class="parameter-container">
-
-                    <!--card 1-->
-                    <div class="parameter">
-                        <img src="./images/wind.png" >
-                        <p>windspeed</p>
-                        <p data-windspeed></p>
-                    </div>
-
-                    <!--card 2-->
-                    <div class="parameter">
-                        <img src="./images/humidity.png" >
-                        <p>humidity</p>
-                        <p data-humidity></p>
-                    </div>
-
-                    <!--card 3-->
-                    <div class="parameter">
-                        <img src="./images/cloud.png" >
-                        <p>Clouds</p>
-                        <p data-cloudiness></p>
-                    </div>
-
-                </div>
-
-
-            </div>
-
-
-
         </div>
-
-
     </div>
 
+    <!-- Weather Dashboard -->
+    <div class="container weather-container" id="weatherContainer">
+        <button class="logout-btn" onclick="logout()">
+            <i class="fas fa-sign-out-alt me-2"></i>Logout
+        </button>
+        
+        <div class="weather-card">
+            <div class="welcome-header">
+                <h1><i class="fas fa-cloud-sun me-3"></i>Weather Explorer</h1>
+                <p class="mb-0">Start exploring weather at your location with air quality & forecasting</p>
+            </div>
+            
 
-    <script src="index.js"></script>
+
+            <div class="input-group mb-4">
+                <input type="text" 
+                       id="locationInput" 
+                       class="form-control location-input" 
+                       placeholder="Enter location (e.g., London)"
+                       required>
+                <input type="date" 
+                       id="dateInput" 
+                       class="form-control"
+                       min="${new Date(Date.now() + 14*24*60*60*1000).toISOString().split('T')[0]}"
+                       max="${new Date(Date.now() + 300*24*60*60*1000).toISOString().split('T')[0]}"
+                       style="display: none;">
+                <button class="btn predict-btn" onclick="fetchWeatherData()">
+                    <i class="fas fa-search me-2"></i>Search
+                </button>
+            </div>
+
+            <ul class="nav nav-tabs mb-4" id="weatherTabs">
+                <li class="nav-item">
+                    <a class="nav-link active" data-type="current">
+                        <i class="fas fa-clock mr-2"></i> Current Weather
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-type="forecast">
+                        <i class="fas fa-calendar-alt mr-2"></i> 14-Day Forecast
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-type="air_quality">
+                        <i class="fas fa-wind mr-2"></i> Air Quality
+                    </a>
+                </li>
+            </ul>
+
+            <div id="loadingSpinner" class="text-center d-none">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+
+            <div id="weatherContent">
+                <!-- Content will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_HEADERS = new Headers();
+
+        // Hardcoded API Key
+        const API_KEY_STORAGE_KEY = 'weatherApiKey';
+        let currentApiKey = '824eca061b7542b491d105930252502';
+        
+        // Login functionality
+        function loginAsGuest() {
+            showWeatherDashboard();
+        }
+
+        function logout() {
+            document.getElementById('weatherContainer').style.display = 'none';
+            document.getElementById('loginContainer').style.display = 'block';
+            document.getElementById('loginForm').reset();
+        }
+
+        function showWeatherDashboard() {
+            document.getElementById('loginContainer').style.display = 'none';
+            document.getElementById('weatherContainer').style.display = 'block';
+            document.getElementById('weatherContainer').classList.add('fade-in');
+        }
+
+        // Login form handler
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('emailInput').value;
+            const password = document.getElementById('passwordInput').value;
+            
+            if (email && password) {
+                showWeatherDashboard();
+            } else {
+                alert('Please enter both email and password');
+            }
+        });
+        
+
+
+        const ENDPOINTS = {
+            current: "current.json",
+            forecast: "forecast.json",
+            air_quality: "current.json"
+        };
+
+        const BASE_URL = "https://api.weatherapi.com/v1";
+
+        let currentTab = 'current';
+
+        // Tab click handlers
+        document.querySelectorAll('.nav-link').forEach(tab => {
+            tab.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.querySelectorAll('.nav-link').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                currentTab = tab.dataset.type;
+                
+                // Show/hide date input for relevant tabs
+                const dateInput = document.getElementById('dateInput');
+                dateInput.style.display = ['future', 'history'].includes(currentTab) ? 'block' : 'none';
+                
+                if (document.getElementById('locationInput').value) {
+                    fetchWeatherData();
+                }
+            });
+        });
+
+        async function fetchWeatherData() {
+            const location = document.getElementById('locationInput').value;
+            const date = document.getElementById('dateInput').value;
+            
+            if (!location) {
+                alert('Please enter a location');
+                return;
+            }
+
+            document.getElementById('loadingSpinner').classList.remove('d-none');
+            
+            try {
+                let url = `${BASE_URL}/${ENDPOINTS[currentTab]}?key=${currentApiKey}&q=${encodeURIComponent(location)}`;
+                
+                if (currentTab === 'forecast') {
+                    url += '&days=14';
+                } else if (currentTab === 'air_quality') {
+                    url += '&aqi=yes';
+                }
+
+                const response = await fetch(url, {
+                    method: "GET",
+                    redirect: "follow"
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.text();
+                const data = JSON.parse(result);
+                
+                if (!data || (!data.current && !data.forecast && !data.alerts)) {
+                    throw new Error('Invalid data received from weather service');
+                }
+
+                if (data.error) {
+                    throw new Error(data.error.info || 'Failed to fetch weather data');
+                }
+                
+                displayWeatherData(data);
+
+            } catch (error) {
+                console.error('Weather API Error:', error);
+                document.getElementById('weatherContent').innerHTML = `
+                    <div class="alert alert-danger">
+                        <h5>Error</h5>
+                        <p>${error.message}</p>
+                        <p>Please try again or check your location input.</p>
+                        <small class="text-muted">If the problem persists, the weather service might be temporarily unavailable.</small>
+                    </div>
+                `;
+            } finally {
+                document.getElementById('loadingSpinner').classList.add('d-none');
+            }
+        }
+
+        function displayWeatherData(data) {
+            const container = document.getElementById('weatherContent');
+            let html = '';
+
+            switch(currentTab) {
+                case 'current':
+                    html = `
+                        <div class="text-center">
+                            <h2>${data.location.name}, ${data.location.country}</h2>
+                            <img src="https:${data.current.condition.icon}" alt="${data.current.condition.text}" class="weather-icon">
+                            <div class="temperature">${data.current.temp_c}°C</div>
+                            <p class="lead mb-4">${data.current.condition.text}</p>
+                            <div class="row mt-4">
+                                <div class="col-md-4">
+                                    <div class="weather-details-card">
+                                        <div class="card-body">
+                                            <i class="fas fa-temperature-high mb-3" style="font-size: 24px; color: #2a5298;"></i>
+                                            <h5 class="mb-3">Feels Like</h5>
+                                            <div class="weather-stat">
+                                                <span class="weather-stat-value">${data.current.feelslike_c}°C</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="weather-details-card">
+                                        <div class="card-body">
+                                            <i class="fas fa-wind mb-3" style="font-size: 24px; color: #2a5298;"></i>
+                                            <h5 class="mb-3">Wind Speed</h5>
+                                            <div class="weather-stat">
+                                                <span class="weather-stat-value">${data.current.wind_kph} km/h</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="weather-details-card">
+                                        <div class="card-body">
+                                            <i class="fas fa-tint mb-3" style="font-size: 24px; color: #2a5298;"></i>
+                                            <h5 class="mb-3">Humidity</h5>
+                                            <div class="weather-stat">
+                                                <span class="weather-stat-value">${data.current.humidity}%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-4">
+                                    <div class="card mb-3">
+                                        <div class="card-body">
+                                            <h6>Visibility</h6>
+                                            <p>${data.current.vis_km} km / ${data.current.vis_miles} miles</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card mb-3">
+                                        <div class="card-body">
+                                            <h6>UV Index</h6>
+                                            <p>${data.current.uv}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card mb-3">
+                                        <div class="card-body">
+                                            <h6>Cloud Cover</h6>
+                                            <p>${data.current.cloud}%</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h6>Wind Gust</h6>
+                                            <p>${data.current.gust_kph} km/h / ${data.current.gust_mph} mph</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'forecast':
+                    if (!data.forecast || !Array.isArray(data.forecast.forecastday)) {
+                        html = '<div class="alert alert-info">No forecast data available</div>';
+                        break;
+                    }
+                    html = `
+                        <div class="row">
+                            ${data.forecast.forecastday.map(day => `
+                                <div class="col-md-4 mb-3">
+                                    <div class="forecast-card">
+                                        <h5>${day.date}</h5>
+                                        <img src="https:${day.day.condition.icon}" alt="${day.day.condition.text}" class="weather-icon">
+                                        <p class="mb-2">${day.day.condition.text}</p>
+                                        <p>Max: ${day.day.maxtemp_c}°C</p>
+                                        <p>Min: ${day.day.mintemp_c}°C</p>
+                                        <p>Rain Chance: ${day.day.daily_chance_of_rain}%</p>
+                                        <div class="small text-muted">
+                                            <p>Sunrise: ${day.astro.sunrise}</p>
+                                            <p>Sunset: ${day.astro.sunset}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                    break;
+
+                case 'air_quality':
+                    if (!data.current.air_quality) {
+                        html = '<div class="alert alert-info">No air quality data available</div>';
+                        break;
+                    }
+                    html = `
+                        <div class="text-center">
+                            <h2>${data.location.name}, ${data.location.country}</h2>
+                            <div class="row mt-4">
+                                <div class="col-md-4">
+                                    <div class="card mb-3">
+                                        <div class="card-body">
+                                            <h6>Air Quality Index</h6>
+                                            <p>US EPA: ${data.current.air_quality['us-epa-index']}/10</p>
+                                            <p>GB DEFRA: ${data.current.air_quality['gb-defra-index']}/10</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card mb-3">
+                                        <div class="card-body">
+                                            <h6>Pollutants</h6>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <p>CO: ${data.current.air_quality.co.toFixed(1)} μg/m³</p>
+                                                    <p>NO₂: ${data.current.air_quality.no2.toFixed(1)} μg/m³</p>
+                                                    <p>O₃: ${data.current.air_quality.o3.toFixed(1)} μg/m³</p>
+                                                </div>
+                                                <div class="col-6">
+                                                    <p>SO₂: ${data.current.air_quality.so2.toFixed(1)} μg/m³</p>
+                                                    <p>PM2.5: ${data.current.air_quality.pm2_5.toFixed(1)} μg/m³</p>
+                                                    <p>PM10: ${data.current.air_quality.pm10.toFixed(1)} μg/m³</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                default:
+                    html = `
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Raw Weather Data</h5>
+                                <pre>${JSON.stringify(data, null, 2)}</pre>
+                            </div>
+                        </div>
+                    `;
+            }
+
+            container.innerHTML = html;
+        }
+
+        // Add enter key support
+        document.getElementById('locationInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                fetchWeatherData();
+            }
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
